@@ -1,0 +1,35 @@
+{
+  "name": "sistema_academico",
+  "version": "1.0.0",
+  "description": "Servidor com express",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/index.js",
+    "dev": "nodemon ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aparecidalml/sistema_academico.git"
+  },
+  "keywords": [],
+  "author": "Aparecida Lopes",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/Aparecidalml/sistema_academico/issues"
+  },
+  "homepage": "https://github.com/Aparecidalml/sistema_academico#readme",
+  "devDependencies": {
+    "dotenv": "^17.4.2",
+    "nodemon": "^3.1.14"
+  },
+  "dependencies": {
+    "ejs": "^5.0.2",
+    "express": "^5.2.1",
+    "mysql2": "^3.22.3",
+    "sequelize": "^6.37.8",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^6.0.1"
+  }
+}
