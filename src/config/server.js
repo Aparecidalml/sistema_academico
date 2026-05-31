@@ -1,10 +1,15 @@
 import express from 'express'
 import path from 'path'
+import Cursos from '../models/modelCurso.js'
+import User from '../models/modelUser.js'
+import Aluno from '../models/modelAluno.js'
+import Disciplina from '../models/modelDisciplina.js'
+import sequelize from './orm.js'
 import routeCurso from '../routes/routeCurso.js'
 import routeAluno from '../routes/routeAluno.js'
 import routeDisciplina from '../routes/routeDisciplina.js'
-import sequelize from './orm.js'
-import Cursos from '../models/modelCurso.js'
+import routeUser from '../routes/routeUser.js'
+import routeLogin from '../routes/routeLogin.js'
 
 const server = express()
 
@@ -19,9 +24,11 @@ server.set('views', path.join(import.meta.dirname, '../views')) //configuração
 server.use(routeCurso)
 server.use(routeAluno)
 server.use(routeDisciplina)
+server.use(routeUser)
+server.use(routeLogin)
 
 server.get('/', (req, res) => {
-    res.render('index', {nome: 'SENAC'})
+    res.render('index')
 })
 
 export default server

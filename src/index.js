@@ -1,5 +1,5 @@
-import server from './config/server.js'
 import sequelize from './config/orm.js'
+import server from './config/server.js'
 import dotenv from 'dotenv'
 
 dotenv.config()
