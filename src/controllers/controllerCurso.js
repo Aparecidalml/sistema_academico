@@ -1,5 +1,5 @@
 import path from "path"
-import Curso from '../models/modelCursoORM.js'
+import Curso from '../models/modelCurso.js'
 import {Op} from 'sequelize'
 
 export  const criarCurso = async(req, res) => {

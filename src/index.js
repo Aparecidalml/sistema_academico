@@ -1,4 +1,4 @@
-import server from './config/app.js'
+import server from './config/server.js'
 import sequelize from './config/orm.js'
 import dotenv from 'dotenv'
 
