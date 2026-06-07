@@ -1,9 +1,11 @@
 import express from 'express'
-import { login, validarLogin } from '../controllers/controllerLogin.js'
+import { autenticar} from '../middlewares/auth.js'
+import { login, validarLogin, logout } from '../controllers/controllerLogin.js'
 
 const routeLogin = express.Router()
 
 routeLogin.get('/login', login)
-routeLogin.post('/login', validarLogin)
+routeLogin.post('/validarLogin', validarLogin)
+routeLogin.post('/logout', autenticar, logout)
 
 export default routeLogin
