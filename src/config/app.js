@@ -3,6 +3,7 @@ import path from 'path'
 import Cursos from '../models/modelCurso.js'
 import User from '../models/modelUser.js'
 import Aluno from '../models/modelAluno.js'
+import { relacionamento } from '../models/relacao.js'
 import Disciplina from '../models/modelDisciplina.js'
 import sequelize, {conexaoBD} from './orm.js'
 import routeCurso from '../routes/routeCurso.js'
@@ -16,9 +17,11 @@ import { apagarCache } from '../middlewares/auth.js'
 
 const app = express()
 
-const sqliteStore = connectSqlite(session)
+relacionamento()
 
 conexaoBD()
+
+const sqliteStore = connectSqlite(session)
 
 app.use(express.json()) //middleware para fazer o parsear JSON no corpo das requisições
 app.use(express.urlencoded({extended: true})) //middleware para fazer o parsear dados de formulários (x-www-form-urlencoded)
@@ -56,7 +59,7 @@ app.use(routeUser)
 app.use(routeLogin)
 
 app.get('/', (req, res) => {
-     res.send('<h1> Página Inicial </h1>')
+     res.sendFile(path.resolve('./public/html/index.html'))
 })
 
 export default app

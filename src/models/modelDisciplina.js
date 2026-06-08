@@ -7,22 +7,18 @@ const Disciplina = sequelize.define('Disciplina', {
         autoIncrement: true,
         primaryKey: true
     },
-
-    codigo: {
+    cod_disciplina: {
         type: DataTypes.STRING(20),
         allowNull: false
     },
-
     disciplina: {
         type: DataTypes.STRING(100),
         allowNull: false
     },
-
-    cargaHoraria: {
+    ch_disciplina: {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-
     professor: {
         type: DataTypes.STRING(100),
         allowNull: false

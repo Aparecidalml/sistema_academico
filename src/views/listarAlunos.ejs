@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cursos</title>
+    <title>Alunos</title>
 </head>
 <body>
     <div style="display: flex; gap: 10px;">
@@ -11,21 +11,21 @@
             <button type="button"> VOLTAR AO PAINEL </button>
         </a>
     </div>
-    <h1>Cursos Disponíveis</h1>
+    <h1>Alunos Cadastrados</h1>
     <h3>
-    <% cursos.forEach(curso => { %>
+    <% alunos.forEach(aluno => { %>
         <div>
-            Curso: <%= curso.curso %>
+            Aluno: <%= aluno.nome %>
             <ul>
-                <li>código: <%= curso.cod %></li>              
-                <li>Carga Horária: <%= curso.ch %></li>
-                <li>Tipo: <%= curso.tipo %></li>
+                <li>Matrícula: <%= aluno.matricula %></li>              
+                <li>E-mail: <%= aluno.email %></li>
+                <li>Telefone: <%= aluno.tel %></li>
             </ul>
         </div>
     <% }) %>
     </h3>
     <br><br><br><br>
-   <footer>
+  <footer>
         <form action="/logout" method="post">
             <button type="submit" style="background-color: #ff4d4d; color: white; padding: 8px 15px; border: none; cursor: pointer;">
                 SAIR DO SISTEMA

@@ -1,26 +1,27 @@
 import express from 'express'
-// import { } from '../controllers/controllerAluno.js'
+import { criarAluno, cadastroAluno, listarAlunos, buscarAluno, atualizarAluno, removerAluno, alterarAluno } from '../controllers/controllerAluno.js'
 
 const routeAluno = express.Router()
 
-// routeAluno.get('/cadastro')
+// Rota para a página de cadastro (ajustada para não conflitar com curso)
+routeAluno.get('/cadastro-aluno', cadastroAluno)
 
-// //Rota para adicionar aluno
-// routeAluno.post('/aluno')
+// Rota para adicionar aluno
+routeAluno.post('/aluno', criarAluno)
 
-// //rota para mostrar todos os alunos
-// routeAluno.get('/alunos')
+// Rota para mostrar todos os alunos
+routeAluno.get('/alunos', listarAlunos)
 
-// // rota para buscar um aluno pelo nome do aluno
-// routeAluno.get('/aluno/:aluno')
+// Rota para buscar um aluno pelo nome
+routeAluno.get('/aluno/:nome', buscarAluno)
 
-// // // rota atulizar todos os dados
-// routeAluno.put('/aluno/:cod')
+// Rota para atualizar todos os dados do aluno (usando matrícula como identificador)
+routeAluno.put('/aluno/:matricula', atualizarAluno)
 
-// // // Rota para remover aluno pelo código
-// routeAluno.delete('/aluno/:cod')
+// Rota para remover aluno pela matrícula
+routeAluno.delete('/aluno/:matricula', removerAluno)
 
-// // // atualizar um ou mais dados do aluno
-//  routeAluno.patch('/aluno/:cod')
+// Rota para atualizar um ou mais dados do aluno
+routeAluno.patch('/aluno/:matricula', alterarAluno)
 
 export default routeAluno

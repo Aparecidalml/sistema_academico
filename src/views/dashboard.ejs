@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Sistema Acadêmico</title>
+</head>
+<body>
+    <header>
+        <h1>Painel de Controle</h1>
+        <h2>Olá, <%= usuario.nome %>! Seja bem-vindo de volta.</h2>
+        <hr>
+    </header>
+
+    <main>
+        <h3>Menu de Gerenciamento</h3>
+        
+        <table border="1" cellpadding="10" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Módulo</th>
+                    <th>Visualização</th>
+                    <th>Cadastro</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Cursos</strong></td>
+                    <td><a href="/cursos">Visualizar Cursos</a></td>
+                    <td><a href="/cadastro-curso">Cadastrar Novo Curso</a></td>
+                </tr>
+                <tr>
+                    <td><strong>Disciplinas</strong></td>
+                    <td><a href="/disciplinas">Visualizar Disciplinas</a></td>
+                    <td><a href="/cadastro-disciplina">Cadastrar Nova Disciplina</a></td>
+                </tr>
+                <tr>
+                    <td><strong>Alunos</strong></td>
+                    <td><a href="/alunos">Visualizar Alunos</a></td>
+                    <td><a href="/cadastro-aluno">Cadastrar Novo Aluno</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+
+    <br><br>
+    <hr>
+    <footer>
+        <form action="/logout" method="post">
+            <button type="submit" style="background-color: #ff4d4d; color: white; padding: 8px 15px; border: none; cursor: pointer;">
+                SAIR DO SISTEMA
+            </button>
+        </form>
+    </footer>
+</body>
+</html>

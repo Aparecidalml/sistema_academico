@@ -25,7 +25,7 @@ export const validarLogin = async (req, res) => {
                 nome: usuario.nome,
                 perfil: usuario.perfil
             }
-            res.render('index', {usuario: usuario})
+            res.render('dashboard', {usuario: usuario})
         })     
     }catch(err){
         res.status(500).json({msg: 'Erro no servidor!'})
@@ -38,4 +38,8 @@ export const logout = (req, res) => {
         res.clearCookie('connect.sid')
         return res.redirect('/login')
     })
+}
+
+export const dashboard = (req, res) => {
+    res.render('dashboard', {usuario: req.session.usuario})
 }

@@ -1,26 +1,27 @@
 import express from 'express'
-// import { } from '../controllers/controllerDisciplina.js'
+import { criarDisciplina, cadastroDisciplina, listarDisciplinas, buscarDisciplina, atualizarDisciplina, removerDisciplina, alterarDisciplina } from '../controllers/controllerDisciplina.js'
 
 const routeDisciplina = express.Router()
 
-// routeDisciplina.get('/cadastro')
+// Rota para a página de cadastro (ajustada para não conflitar com curso)
+routeDisciplina.get('/cadastro-disciplina', cadastroDisciplina)
 
-// //Rota para adicionar disciplina
-// routeDisciplina.post('/disciplina')
+// Rota para adicionar disciplina
+routeDisciplina.post('/disciplina', criarDisciplina)
 
-// //rota para mostrar todos os disciplinas
-// routeDisciplina.get('/disciplinas')
+// Rota para mostrar todas as disciplinas
+routeDisciplina.get('/disciplinas', listarDisciplinas)
 
-// // rota para buscar um disciplina pelo nome do disciplina
-// routeDisciplina.get('/disciplina/:disciplina')
+// Rota para buscar uma disciplina pelo nome
+routeDisciplina.get('/disciplina/:nome', buscarDisciplina)
 
-// // // rota atulizar todos os dados
-// routeDisciplina.put('/disciplina/:cod')
+// Rota para atualizar todos os dados da disciplina
+routeDisciplina.put('/disciplina/:cod', atualizarDisciplina)
 
-// // // Rota para remover disciplina pelo código
-// routeDisciplina.delete('/disciplina/:cod')
+// Rota para remover disciplina pelo código
+routeDisciplina.delete('/disciplina/:cod', removerDisciplina)
 
-// // // atualizar um ou mais dados do disciplina
-//  routeDisciplina.patch('/disciplina/:cod')
+// Rota para atualizar um ou mais dados da disciplina
+routeDisciplina.patch('/disciplina/:cod', alterarDisciplina)
 
 export default routeDisciplina

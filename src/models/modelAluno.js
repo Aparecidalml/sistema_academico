@@ -7,22 +7,18 @@ const Aluno = sequelize.define('Aluno', {
         autoIncrement: true,
         primaryKey: true
     },
-
     matricula: {
         type: DataTypes.STRING(20),
         allowNull: false
     },
-
     nome: {
         type: DataTypes.STRING(100),
         allowNull: false
     },
-
     email: {
         type: DataTypes.STRING(100),
         allowNull: false       
     },
-
     telefone: {
         type: DataTypes.STRING(20),
         allowNull: false

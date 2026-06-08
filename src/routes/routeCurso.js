@@ -3,7 +3,7 @@ import { criarCurso, cadastroCurso, listarCursos, buscarCurso, atualizarCurso , 
 
 const routeCurso = express.Router()
 
-routeCurso.get('/cadastro', cadastroCurso)
+routeCurso.get('/cadastro-curso', cadastroCurso)
 
 //Rota para adicionar curso
 routeCurso.post('/curso', criarCurso)
