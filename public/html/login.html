@@ -3,18 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
     <title>Login</title>
 </head>
 <body>
-    <h1>Login</h1>
+     <header class="header">
+        <div class="header-container">
+
+            <div class="header-left">
+                <img src="/assets/logo.png" alt="Logo da Instituição" class="logo">
+
+                <div class="instituicao">
+                    <h1>Sistema Acadêmico</h1>
+                    <p>Gestão Escolar Integrada</p>
+                </div>
+            </div>
+
+            
+
+        </div>
+    </header>
+
+    <main class="login-main">
+
+        <div class="login-card">
+
+    <h2>Login</h2>
     <form action="/validarLogin" method="post">
-        <label>Email</label>
-        <input type="email" placeholder="Digite seu email" id="email" name="email"> <br><br>
-        <label>Senha</label>
-        <input type="password" placeholder="Digite sua senha" id="senha" name="senha"><br><br>
-        <button type="submit"> Entrar </button>
+        <div class="form-group">
+
+            <label>Email</label>
+            <input type="email" placeholder="Digite seu email" id="email" name="email"> <br><br>
+            <label>Senha</label>
+            <input type="password" placeholder="Digite sua senha" id="senha" name="senha"><br><br>
+        </div>
+            <button type="submit" class="btn-primary"> Entrar </button>
     </form>
-    <p> Não possui conta? <a href="/cadastroUsuario"> Criar conta </a> </p>
+    <p class="cadastro-link"> Não possui conta? <a href="/cadastroUsuario"> Criar conta </a> </p>
+        </div>
+    </main>   
+     <footer class="footer">
+        <p>Sistema Acadêmico</p>
+        <p>&copy; 2026 - Todos os direitos reservados</p>
+    </footer>
 
 </body>
 </html>

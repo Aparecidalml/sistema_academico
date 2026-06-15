@@ -14,12 +14,34 @@ import routeLogin from '../routes/routeLogin.js'
 import session from 'express-session'
 import connectSqlite from 'connect-sqlite3'
 import { apagarCache } from '../middlewares/auth.js'
+import cookieParser from 'cookie-parser'
 
 const app = express()
 
 relacionamento()
 
 conexaoBD()
+
+async function usuarioAdmin() {
+  try {
+    const adminExists = await User.findOne({ where: { perfil: 'Admin' } })
+    if (adminExists) {
+      console.log('Usuário admin já existe!')
+      return
+    }
+    const usuario = await User.create({
+      nome: 'admin',
+      email: 'admin@email.com',
+      senha: 'admin123',
+      perfil: 'Admin'
+    });
+    console.log('Usuário criado!')
+  } catch (error) {
+    console.error('Erro ao criar usuário!', error)
+  }
+}
+
+usuarioAdmin()
 
 const sqliteStore = connectSqlite(session)
 
@@ -51,6 +73,8 @@ app.use(session ({
 )
 
 app.use(apagarCache)
+
+app.use(cookieParser())
 
 app.use(routeCurso)
 app.use(routeAluno)

@@ -4,19 +4,28 @@ const perfils = ['Admin', 'Coordenador', 'Professor', 'Estudante']
 
 export const autenticar = async (req, res, next) => {
 
-    if (!req.session.usuario) return res.redirect('/login')
-    const usuario = await User.findByPk(req.session.usuario.id)
-    if (!usuario) {
-        req.session.destroy(() => {})
-        return res.status(401).json({mensagem: 'Usuário não encontrado' })
+    // if (!req.session.usuario) return res.redirect('/login')
+    // const usuario = await User.findByPk(req.session.usuario.id)
+    // if (!usuario) {
+    //     req.session.destroy(() => {})
+    //     return res.status(401).json({mensagem: 'Usuário não encontrado' })
+    // }
+
+    if(!req.cookies.token) return res.redirect('/login')
+    
+    try{
+        const usuario = jwt.verify(req.cookies.token, process.env.JWT_SECRET)
+        req.usuario = usuario
+        next()
+    }catch(err){
+        return res.redirect('/login')
     }
-    req.usuario = usuario
-    next()
 }
 
 export function validarPerfil(perfils) {
     return (req, res, next) => {
-        const perfil = req.session.usuario.perfil
+        // const perfil = req.session.usuario.perfil
+        const perfil = req.usuario.perfil
         if (!perfils.includes(perfil)) return res.status(403).send('Acesso Negado!')
         next()
     }

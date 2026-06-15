@@ -3,25 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
     <title>Sistema Acadêmico - Home</title>
 </head>
 <body>
-    <header>
-        <h1>Bem-vindo ao Sistema Acadêmico</h1>
-        <p>Gerencie cursos, disciplinas e alunos de forma rápida e prática.</p>
+
+    <header class="header">
+        <div class="header-container">
+
+            <div class="header-left">
+                <img src="/assets/logo.png" alt="Logo da Instituição" class="logo">
+
+                <div class="instituicao">
+                    <h1>Sistema Acadêmico</h1>
+                    <p>Gestão Escolar Integrada</p>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <a href="/login" class="btn btn-primary">
+                    Entrar
+                </a>
+            </div>
+
+        </div>
     </header>
 
     <main>
-        <h3>Para acessar o painel administrativo, por favor faça a sua autenticação:</h3>
-        <a href="/login">
-            <button style="padding: 10px 20px; font-size: 16px; cursor: pointer;">
-                Acessar Área Restrita (Login)
-            </button>
-        </a>
+        <section class="section">
+
+            <h2>Sobre o Sistema</h2>
+
+            <p>
+                 Plataforma desenvolvida para facilitar o gerenciamento
+                    de alunos, professores, turmas, disciplinas e notas,
+                    proporcionando mais organização e eficiência para a instituição.
+            </p>
+
+        </section>
+
+        <section class="section">
+
+            <h2>Principais Funcionalidades</h2>
+
+            <div class="cards">
+
+                <div class="card">
+                    <h3>👨‍🎓 Alunos</h3>
+                    <p>Cadastro, edição e consulta de estudantes.</p>
+                </div>
+
+                <div class="card">
+                    <h3>👩‍🏫 Professores</h3>
+                    <p>Gerenciamento completo do corpo docente.</p>
+                </div>
+
+                <div class="card">
+                    <h3>📚 Disciplinas</h3>
+                    <p>Controle das disciplinas ofertadas.</p>
+                </div>
+
+                <div class="card">
+                    <h3>🏫 Turmas</h3>
+                    <p>Organização e gerenciamento de turmas.</p>
+                </div>
+
+                <div class="card">
+                    <h3>📝 Notas</h3>
+                    <p>Lançamento e acompanhamento de avaliações.</p>
+                </div>
+
+                <div class="card">
+                    <h3>📊 Relatórios</h3>
+                    <p>Relatórios acadêmicos e administrativos.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+        
+       
+
     </main>
 
-    <footer>
-        <p>&copy; 2026 - Sistema Acadêmico</p>
+    <footer class="footer">
+        <p>Sistema Acadêmico</p>
+        <p>&copy; 2026 - Todos os direitos reservados</p>
     </footer>
+
 </body>
 </html>

@@ -1,12 +1,32 @@
 import { Sequelize } from "sequelize"
 import path from 'path'
+import dotenv from 'dotenv'
 
-const sequelize = new Sequelize({
-    dialect: 'sqlite',
-    storage: path.join(import.meta.dirname, '../database', 'bd.sqlite'),
-    logging: false
-})
+dotenv.config()
 
+
+let sequelize
+
+if(process.env.MODE_NODE === "dev"){
+    console.log('Modo: ', process.env.MODE_NODE)
+    sequelize = new Sequelize({
+        dialect: 'sqlite',
+        storage: path.join(import.meta.dirname, '../database', 'bd.sqlite'),
+        logging: false
+    })
+}else{
+    console.log('Modo: ', process.env.MODE_NODE)
+    sequelize = new Sequelize(
+        process.env.DATABASE_URL,
+        {    
+            dialect: 'postgres',
+            dialectOptions: {
+                ssl: {require: true, rejectUnauthorized: false } //true se estiver em produção
+            },
+            logging: false
+        }
+    )
+}
 
 export const conexaoBD = async () => {
 

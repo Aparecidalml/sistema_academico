@@ -4,8 +4,14 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-const PORT = process.env.EXPRESS_PORT || 3000
-const HOST = process.env.EXPRESS_HOST || 'localhost'
+let PORT = process.env.EXPRESS_PORT 
+let HOST = process.env.EXPRESS_HOST 
+
+if(process.env.MODE_NODE === 'dev'){
+    PORT = 3000
+    HOST = 'localhost'
+}
+
 
 server.listen(PORT, HOST, () => {
     console.log(`Servidor em execução em: http://${HOST}:${PORT}`)
