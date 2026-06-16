@@ -1,36 +1,176 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cursos</title>
-</head>
-<body>
-    <div style="display: flex; gap: 10px;">
-        <a href="/dashboard">
-            <button type="button"> VOLTAR AO PAINEL </button>
-        </a>
-    </div>
-    <h1>Cursos Disponíveis</h1>
-    <h3>
-    <% cursos.forEach(curso => { %>
+<%- include('partials/header', { titulo: 'Cursos' }) %>
+
+<main class="page-container">
+
+    <div class="page-header">
+
         <div>
-            Curso: <%= curso.curso %>
-            <ul>
-                <li>código: <%= curso.cod %></li>              
-                <li>Carga Horária: <%= curso.ch %></li>
-                <li>Tipo: <%= curso.tipo %></li>
-            </ul>
+            <h2>Cursos Disponíveis</h2>
+            <p>Total de cursos: <%= cursos.length %></p>
         </div>
-    <% }) %>
-    </h3>
-    <br><br><br><br>
-   <footer>
-        <form action="/logout" method="post">
-            <button type="submit" style="background-color: #ff4d4d; color: white; padding: 8px 15px; border: none; cursor: pointer;">
-                SAIR DO SISTEMA
+
+    </div>
+
+    <div class="content-card">
+
+        <table class="dashboard-table">
+
+            <thead>
+    <tr>
+        <th>Código</th>
+        <th>Curso</th>
+        <th>Carga Horária</th>
+        <th>Tipo</th>
+        <th>Ações</th>
+    </tr>
+</thead>
+
+<tbody>
+
+<% cursos.forEach(curso => { %>
+
+<tr>
+
+    <td><%= curso.cod %></td>
+    <td><%= curso.curso %></td>
+    <td><%= curso.ch %>h</td>
+    <td><%= curso.tipo %></td>
+
+    <td class="acoes">
+
+        <button
+            class="btn-editar"
+            onclick="abrirModalCurso(
+                '<%= curso.id %>',
+                '<%= curso.curso %>',
+                '<%= curso.cod %>',
+                '<%= curso.ch %>',
+                '<%= curso.tipo %>'
+            )"
+        >
+            ✏️ Editar
+        </button>
+
+        <form
+            action="/cursos/excluir/<%= curso.id %>"
+            method="POST"
+            style="display:inline"
+            onsubmit="return confirm('Deseja excluir este curso?')"
+        >
+            <button
+                type="submit"
+                class="btn-excluir"
+            >
+                🗑 Excluir
             </button>
         </form>
-    </footer>
-</body>
-</html>
+
+    </td>
+
+</tr>
+
+<% }) %>
+
+</tbody>
+
+        </table>
+
+    </div>
+
+    <div id="modalCurso" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h3>Editar Curso</h3>
+
+            <span
+                class="fechar"
+                onclick="fecharModalCurso()"
+            >
+                &times;
+            </span>
+
+        </div>
+
+        <form
+            id="formCurso"
+            method="POST"
+        >
+
+            <div class="form-group">
+                <label>Curso</label>
+                <input
+                    type="text"
+                    id="cursoNome"
+                    name="curso"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Código</label>
+                <input
+                    type="text"
+                    id="cursoCodigo"
+                    name="cod"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Carga Horária</label>
+                <input
+                    type="number"
+                    id="cursoCH"
+                    name="ch"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Tipo</label>
+
+                <select
+                    id="cursoTipo"
+                    name="tipo"
+                    required
+                >
+                    <option value="Técnico">
+                        Técnico
+                    </option>
+
+                    <option value="Graduação">
+                        Graduação
+                    </option>
+
+                    <option value="Pós-graduação">
+                        Pós-graduação
+                    </option>
+
+                    <option value="Extensão">
+                        Extensão
+                    </option>
+                </select>
+            </div>
+
+            <button
+                type="submit"
+                class="btn-primary"
+            >
+                Salvar Alterações
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</main>
+
+<script src="../js/curso.js"></script>
+
+
+<%- include('partials/footer') %>

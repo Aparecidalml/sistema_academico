@@ -3,18 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
     <title>Cadastro</title>
 </head>
 <body>
+    <header class="header">
+    <div class="header-container">
+
+        <div class="header-left">
+            <img src="/assets/logo.png" alt="Logo da Instituição" class="logo" >
+
+            <div class="instituicao">
+                <h1>Sistema Acadêmico</h1>
+            </div>
+        </div>
+
+        <div class="header-right">
+
+            <a href="/dashboard" class="btn btn-voltar"> ← Voltar </a>
+            <a href="/logout" class="btn btn-sair"> Sair </a>
+        </div>
+    </div>
+</header>
    
-    <h2>Cadastrar Curso</h2>
-    <form action="/curso" method="post">  
-        Código: <input type="text" id="cod" name="cod"><br><br> 
-        Nome: <input type="text" id="curso" name="curso"><br><br>
-        Carga Horária: <input type="text" id="ch" name="ch"><br><br>
-        Tipo: <input type="text" id="tipo" name="tipo"><br><br>
-        <button type="submit">Salvar</button>
-    </form>
+    <main class="page-container">
+
+    <div class="page-header">
+
+        <div>
+            <h2>Cadastrar Curso</h2>
+            <p>Preencha os dados do novo curso.</p>
+        </div>
+
+      
+    </div>
+
+    <div class="content-card">
+
+        <form action="/curso" method="POST">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label for="cod">Código</label>
+                    <input
+                        type="text"
+                        id="cod"
+                        name="cod"
+                        placeholder="Ex: ADS001"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="curso">Nome do Curso</label>
+                    <input
+                        type="text"
+                        id="curso"
+                        name="curso"
+                        placeholder="Ex: Análise e Desenvolvimento de Sistemas"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="ch">Carga Horária</label>
+                    <input
+                        type="number"
+                        id="ch"
+                        name="ch"
+                        placeholder="Ex: 2400"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="tipo">Tipo</label>
+
+                    <select
+                        id="tipo"
+                        name="tipo"
+                        required
+                    >
+                        <option value="">
+                            Selecione
+                        </option>
+
+                        <option value="Técnico">
+                            Técnico
+                        </option>
+
+                        <option value="Graduação">
+                            Graduação
+                        </option>
+
+                        <option value="Pós-graduação">
+                            Pós-graduação
+                        </option>
+
+                        <option value="Extensão">
+                            Extensão
+                        </option>
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+
+                <button
+                    type="submit"
+                    class="btn-primary"
+                >
+                    Salvar Curso
+                </button>
+
+                <button
+                    type="reset"
+                    class="btn-secondary"
+                >
+                    Limpar
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</main>
+
+  <footer class="footer">
+        <p>Sistema Acadêmico</p>
+        <p>&copy; 2026 - Todos os direitos reservados</p>
+    </footer>
     
 </body>
 </html>

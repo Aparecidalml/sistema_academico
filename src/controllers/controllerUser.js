@@ -78,3 +78,24 @@ export const atualizarParcialUsuario = async (req, res) => {
         res.status(500).json({mensagem: 'Erro no servidor!'})
     }
 }
+
+
+export async function usuarioAdmin() {
+  try {
+    const adminExists = await User.findOne({ where: { perfil: 'Admin' } })
+    if (adminExists) {
+      console.log('Usuário admin já existe!')
+      return
+    }
+    const senhaCript = await bcrypt.hash('a12345', 10)
+    const usuario = await User.create({
+      nome: 'admin',
+      email: 'admin@email.com',
+      senha: senhaCript,
+      perfil: 'Admin'
+    });
+    console.log('Usuário criado!')
+  } catch (error) {
+    console.error('Erro ao criar usuário!', error)
+  }
+}

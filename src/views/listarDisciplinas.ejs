@@ -1,36 +1,160 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Disciplinas</title>
-</head>
-<body>
-    <div style="display: flex; gap: 10px;">
-        <a href="/dashboard">
-            <button type="button"> VOLTAR AO PAINEL </button>
-        </a>
-    </div>
-    <h1>Disciplinas Disponíveis</h1>
-    <h3>
-    <% disciplinas.forEach(disciplina => { %>
+<%- include('partials/header', { titulo: 'Disciplinas' }) %>
+
+<main class="page-container">
+
+    <div class="page-header">
+
         <div>
-            Disciplina: <%= disciplina.nome %>
-            <ul>
-                <li>Código: <%= disciplina.cod_disciplina %></li>              
-                <li>Carga Horária: <%= disciplina.ch_disciplina %>h</li>
-                <li>Professor: <%= disciplina.prof %></li>
-            </ul>
+            <h2>Disciplinas Disponíveis</h2>
+            <p>Total de disciplinas: <%= disciplinas.length %></p>
         </div>
-    <% }) %>
-    </h3>
-    <br><br><br><br>
-    <footer>
-        <form action="/logout" method="post">
-            <button type="submit" style="background-color: #ff4d4d; color: white; padding: 8px 15px; border: none; cursor: pointer;">
-                SAIR DO SISTEMA
+
+    </div>
+
+    <div class="content-card">
+
+        <table class="dashboard-table">
+
+            <thead>
+    <tr>
+        <th>Código</th>
+        <th>Disciplina</th>
+        <th>Carga Horária</th>
+        <th>Professor</th>
+        <th>Ações</th>
+    </tr>
+</thead>
+
+<tbody>
+
+<% disciplinas.forEach(disciplina => { %>
+
+<tr>
+
+    <td><%= disciplina.cod_disciplina %></td>
+    <td><%= disciplina.nome %></td>
+    <td><%= disciplina.ch_disciplina %>h</td>
+    <td><%= disciplina.prof %></td>
+
+    <td class="acoes">
+
+        <button
+            class="btn-editar"
+            onclick="abrirModalDisciplina(
+                '<%= disciplina.id %>',
+                '<%= disciplina.nome %>',
+                '<%= disciplina.cod_disciplina %>',
+                '<%= disciplina.ch_disciplina %>',
+                '<%= disciplina.prof %>'
+            )"
+        >
+            ✏️ Editar
+        </button>
+
+        <form
+            action="/disciplinas/excluir/<%= disciplina.id %>"
+            method="POST"
+            style="display:inline"
+            onsubmit="return confirm('Deseja excluir esta disciplina?')"
+        >
+            <button
+                type="submit"
+                class="btn-excluir"
+            >
+                🗑 Excluir
             </button>
         </form>
-    </footer>
-</body>
-</html>
+
+    </td>
+
+</tr>
+
+<% }) %>
+
+</tbody>
+
+        </table>
+
+    </div>
+
+    <div id="modalDisciplina" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h3>Editar Disciplina</h3>
+
+            <span
+                class="fechar"
+                onclick="fecharModalDisciplina()"
+            >
+                &times;
+            </span>
+
+        </div>
+
+        <form
+            id="formDisciplina"
+            method="POST"
+        >
+
+            <div class="form-group">
+                <label>Nome</label>
+                <input
+                    type="text"
+                    id="discNome"
+                    name="nome"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Código</label>
+                <input
+                    type="text"
+                    id="discCodigo"
+                    name="cod_disciplina"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Carga Horária</label>
+                <input
+                    type="number"
+                    id="discCH"
+                    name="ch_disciplina"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Professor</label>
+                <input
+                    type="text"
+                    id="discProfessor"
+                    name="prof"
+                    required
+                >
+            </div>
+
+            <button
+                type="submit"
+                class="btn-primary"
+            >
+                Salvar Alterações
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</main>
+
+<script src="../js/disciplina.js"></script>
+
+
+<%- include('partials/footer') %>

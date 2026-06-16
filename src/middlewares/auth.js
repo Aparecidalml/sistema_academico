@@ -1,4 +1,5 @@
 import User from '../models/modelUser.js'
+import jwt from  'jsonwebtoken'
 
 const perfils = ['Admin', 'Coordenador', 'Professor', 'Estudante']
 

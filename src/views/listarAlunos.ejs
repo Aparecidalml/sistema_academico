@@ -1,36 +1,157 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alunos</title>
-</head>
-<body>
-    <div style="display: flex; gap: 10px;">
-        <a href="/dashboard">
-            <button type="button"> VOLTAR AO PAINEL </button>
-        </a>
-    </div>
-    <h1>Alunos Cadastrados</h1>
-    <h3>
-    <% alunos.forEach(aluno => { %>
+<%- include('partials/header', { titulo: 'Alunos' }) %>
+
+<main class="page-container">
+
+    <div class="page-header">
+
         <div>
-            Aluno: <%= aluno.nome %>
-            <ul>
-                <li>Matrícula: <%= aluno.matricula %></li>              
-                <li>E-mail: <%= aluno.email %></li>
-                <li>Telefone: <%= aluno.tel %></li>
-            </ul>
-        </div>
-    <% }) %>
-    </h3>
-    <br><br><br><br>
-  <footer>
-        <form action="/logout" method="post">
-            <button type="submit" style="background-color: #ff4d4d; color: white; padding: 8px 15px; border: none; cursor: pointer;">
-                SAIR DO SISTEMA
+            <h2>Alunos Cadastrados</h2>
+            <p>Total de alunos: <%= alunos.length %></p>
+        </div>    
+
+    </div>
+
+    <div class="content-card">
+
+        <table class="dashboard-table">
+
+           <thead>
+    <tr>
+        <th>Matrícula</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Telefone</th>
+        <th>Ações</th>
+    </tr>
+</thead>
+
+<tbody>
+
+<% alunos.forEach(aluno => { %>
+
+<tr>
+
+    <td><%= aluno.matricula %></td>
+    <td><%= aluno.nome %></td>
+    <td><%= aluno.email %></td>
+    <td><%= aluno.tel %></td>
+
+    <td class="acoes">
+
+        <button
+            class="btn-editar"
+            onclick="abrirModal(
+                '<%= aluno.id %>',
+                '<%= aluno.nome %>',
+                '<%= aluno.email %>',
+                '<%= aluno.tel %>'
+            )"
+        >
+            ✏️ Editar
+        </button>
+
+        <form
+            action="/alunos/excluir/<%= aluno.id %>"
+            method="POST"
+            style="display:inline;"
+            onsubmit="return confirm('Deseja realmente excluir este aluno?')"
+        >
+            <button
+                type="submit"
+                class="btn-excluir"
+            >
+                🗑 Excluir
             </button>
         </form>
-    </footer>
-</body>
-</html>
+
+    </td>
+
+</tr>
+
+<% }) %>
+
+</tbody>
+
+        </table>
+
+    </div>
+
+    <div id="modalEditar" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h3>Editar Aluno</h3>
+
+            <span
+                class="fechar"
+                onclick="fecharModal()"
+            >
+                &times;
+            </span>
+
+        </div>
+
+        <form
+            id="formEditar"
+            method="POST"
+        >
+
+            <div class="form-group">
+
+                <label>Nome</label>
+
+                <input
+                    type="text"
+                    id="editNome"
+                    name="nome"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Email</label>
+
+                <input
+                    type="email"
+                    id="editEmail"
+                    name="email"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Telefone</label>
+
+                <input
+                    type="text"
+                    id="editTel"
+                    name="tel"
+                    required
+                >
+
+            </div>
+
+            <button
+                type="submit"
+                class="btn-primary"
+            >
+                Salvar Alterações
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</main>
+
+<script src="../js/aluno.js"></script>
+
+<%- include('partials/footer') %>
