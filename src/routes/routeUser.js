@@ -5,10 +5,10 @@ import { listarUsuarios, salvarUsuario, cadastrarUsuario, atualizarUsuario, remo
 const routeUser = express.Router()
 
 routeUser.get('/cadastroUsuario', cadastrarUsuario)
-routeUser.post('/usuario', salvarUsuario)
-routeUser.get('/usuarios', listarUsuarios)
-routeUser.put('/usuario', atualizarUsuario)
-routeUser.delete('/usuario/:id', removerUsuario)
-routeUser.patch('/usuario/:id', atualizarParcialUsuario)
+routeUser.post('/usuario', autenticar, salvarUsuario)
+routeUser.get('/usuarios', autenticar, listarUsuarios)
+routeUser.put('/usuario', autenticar, atualizarUsuario)
+routeUser.delete('/usuario/:id', autenticar, removerUsuario)
+routeUser.patch('/usuario/:id', autenticar, atualizarParcialUsuario)
 
 export default routeUser

@@ -53,22 +53,39 @@ body{
 
 .header-container{
 
+    display:grid;
+
+    grid-template-columns: 1fr auto 1fr;
+
+    align-items:center;
+
     max-width:1400px;
 
     margin:auto;
 
     padding:15px 30px;
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
 }
 
-.header-left{
+.header-voltar{
+    justify-self:start;
+}
+
+.header-center{
+
     display:flex;
+
     align-items:center;
+
     gap:15px;
+
+    justify-self:center;
 }
+
+.header-sair{
+    justify-self:end;
+}
+
+
 
 .logo{
 
@@ -94,10 +111,7 @@ body{
     opacity:.9;
 }
 
-.header-right{
-    display:flex;
-    gap:10px;
-}
+
 
 .btn{
 
@@ -125,6 +139,8 @@ body{
 
 .btn-sair{
     background:#dc2626;
+    right: 30px;
+
 }
 
 .btn-sair:hover{
@@ -627,7 +643,7 @@ textarea:focus{
    FORMULÁRIOS
 ========================== */
 
-.form-grid{
+/* .form-grid{
 
     display:grid;
 
@@ -635,7 +651,7 @@ textarea:focus{
         repeat(auto-fit, minmax(300px, 1fr));
 
     gap:20px;
-}
+} */
 
 .form-group{
 
@@ -707,6 +723,168 @@ textarea:focus{
 .btn-secondary:hover{
 
     background:#4b5563;
+}
+
+/* ==========================
+   PÁGINAS DE CADASTRO
+========================== */
+
+.cadastro-main{
+
+    width:95%;
+
+    max-width:800px;
+
+    margin:30px auto;
+}
+
+.cadastro-card{
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:15px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.cadastro-card h2{
+
+    color:var(--roxo);
+
+    margin-bottom:10px;
+}
+
+.cadastro-card p{
+
+    margin-bottom:25px;
+
+    color:#666;
+}
+
+.cadastro-form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+}
+
+.cadastro-form .form-group{
+
+    display:flex;
+
+    flex-direction:column;
+}
+
+.cadastro-form button{
+
+    margin-top:10px;
+}
+
+/* ==========================
+   DASHBOARD CARDS
+========================== */
+
+.dashboard-cards{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(260px, 1fr));
+
+    gap:25px;
+
+    margin-top:25px;
+}
+
+.dashboard-card{
+
+    background:white;
+
+    padding:25px;
+
+    border-radius:15px;
+
+    text-align:center;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,.08);
+
+    transition:.3s;
+}
+
+.dashboard-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.12);
+}
+
+.card-icon{
+
+    font-size:3rem;
+
+    margin-bottom:15px;
+}
+
+.dashboard-card h4{
+
+    color:var(--roxo);
+
+    margin-bottom:10px;
+
+    font-size:1.2rem;
+}
+
+.dashboard-card p{
+
+    color:#666;
+
+    margin-bottom:20px;
+
+    line-height:1.5;
+}
+
+.card-actions{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+}
+
+.card-actions a{
+
+    text-decoration:none;
+}
+
+.card-actions .btn-primary,
+.card-actions .btn-secondary{
+
+    padding:10px 16px;
+
+    border-radius:8px;
+
+    font-size:.9rem;
+}
+
+.card-actions .btn-secondary{
+
+    background:var(--azul);
+
+    color:white;
+}
+
+.card-actions .btn-secondary:hover{
+
+    background:var(--azul-claro);
 }
 
 @media(max-width:768px){

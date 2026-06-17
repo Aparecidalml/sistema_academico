@@ -5,13 +5,6 @@ const perfils = ['Admin', 'Coordenador', 'Professor', 'Estudante']
 
 export const autenticar = async (req, res, next) => {
 
-    // if (!req.session.usuario) return res.redirect('/login')
-    // const usuario = await User.findByPk(req.session.usuario.id)
-    // if (!usuario) {
-    //     req.session.destroy(() => {})
-    //     return res.status(401).json({mensagem: 'Usuário não encontrado' })
-    // }
-
     if(!req.cookies.token) return res.redirect('/login')
     
     try{

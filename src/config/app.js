@@ -16,6 +16,7 @@ import connectSqlite from 'connect-sqlite3'
 import { apagarCache } from '../middlewares/auth.js'
 import cookieParser from 'cookie-parser'
 import { usuarioAdmin } from '../controllers/controllerUser.js'
+import methodOverride from 'method-override'
 
 const app = express()
 
@@ -33,7 +34,7 @@ app.use(express.urlencoded({extended: true})) //middleware para fazer o parsear 
 app.use(express.static(path.join(import.meta.dirname, '../', '../public'))) //middleware para arquivos estáticos (como HTML, CSS, JS) da pasta 'public'
 
 app.set('view engine', 'ejs') //configuração para usar o EJS como template engine
-app.set('views', path.join(import.meta.dirname, '../views')) //configuração para definir a pasta onde estão as views do EJS
+app.set('views', path.join(import.meta.dirname, '../views/pages/')) //configuração para definir a pasta onde estão as views do EJS
 
 app.use(session ({
         store: new sqliteStore ({
@@ -57,6 +58,8 @@ app.use(session ({
 app.use(apagarCache)
 
 app.use(cookieParser())
+
+app.use(methodOverride('_method'))
 
 app.use(routeCurso)
 app.use(routeAluno)

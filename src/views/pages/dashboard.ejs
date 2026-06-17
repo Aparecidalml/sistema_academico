@@ -1,0 +1,71 @@
+<%- include('../partials/header', { titulo: 'Dashboard' }) %>
+
+<main class="dashboard-main">
+
+    <section class="welcome-section">
+        <h2>Olá, <%= usuario.nome %>!</h2>
+        <p>
+            Bem-vindo ao Sistema Acadêmico.
+            Utilize os módulos abaixo para gerenciar os dados da instituição.
+        </p>
+    </section>
+
+    <section class="dashboard-container">
+
+        <h3>Menu de Gerenciamento</h3>
+
+        <div class="dashboard-cards">
+
+            <div class="dashboard-card">
+                <div class="card-icon">🎓</div>
+                    <h4>Estudantes</h4>
+                    <p> Gerencie os alunos cadastrados no sistema.</p>
+
+                <div class="card-actions">
+                    <a href="/alunos" class="btn-primary"> Visualizar</a>
+
+                    <a href="/cadastro-aluno" class="btn-secondary"> Cadastrar </a>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-icon">📚</div>
+
+                    <h4>Disciplinas</h4>
+                    <p>Consulte e cadastre disciplinas.</p>
+
+                <div class="card-actions">
+                    <a href="/disciplinas" class="btn-primary">Visualizar</a>
+                    <a href="/cadastro-disciplina" class="btn-secondary">Cadastrar</a>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+
+                <div class="card-icon">🏫</div>
+                    <h4>Cursos</h4>
+                    <p>Gerencie os cursos disponíveis.</p>
+
+                <div class="card-actions">
+                    <a href="/cursos" class="btn-primary"> Visualizar</a>
+                    <a href="/cadastro-curso" class="btn-secondary">Cadastrar </a>
+                </div>
+
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-icon">👤</div>
+                    <h4>Usuários</h4>
+                    <p> Administração dos usuários do sistema.</p>
+
+                <div class="card-actions">
+                    <a href="/usuarios" class="btn-primary"> Visualizar</a>
+
+                    <a href="/cadastroUsuario" class="btn-secondary"> Cadastrar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<%- include('../partials/footer') %>

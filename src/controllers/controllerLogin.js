@@ -13,14 +13,25 @@ export const login = (req, res) => {
 
 export const validarLogin = async (req, res) => {
     const {email, senha} = req.body
-    if(!email && !senha) return res.status(400).send('Preencha todos os campos!')
+    if(!email && !senha) return res.status(400).send(`
+                <script>
+                    alert("Preencha todos os campos!")
+                    window.location.href = "/login"
+                </script> `)
     try{
         const usuario = await User.findOne({where: {email: email}})
-        if(!usuario) return res.status(400).json({msg: 'E-mail inválido!'})
+        if(!usuario) return res.status(400).send(`
+                <script>
+                    alert("E-mail inválido!")
+                    window.location.href = "/login"
+                </script> `)
         const senhaDescript = await bcrypt.compare(senha, usuario.senha)
-        // console.log(senhaDescript)
-        if(!senhaDescript) return res.status(400).json({msg: 'Senha Inválida!'})
-         
+        if(!senhaDescript) return res.status(400).send(`
+                <script>
+                    alert("Senha Inválida!")
+                    window.location.href = "/login"
+                </script> `)
+
         // session    
         // req.session.regenerate((err) => {
         //     if(err) return res.status(500).json({msg: 'Erro ao salvar a sessão.'})
