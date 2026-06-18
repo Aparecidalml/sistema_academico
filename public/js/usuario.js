@@ -1,11 +1,10 @@
-function abrirModal(nome, email, perfil){
-    alert('entrou   ')
-    document.getElementById('editNome').value = nome
-    document.getElementById('editEmail').value = email
-    document.getElementById('editPerfil').value = perfil
+function abrirModal(id, nome, email, perfil){
+    document.getElementById('editNome').value = nome;
+    document.getElementById('editEmail').value = email;
+    document.getElementById('editPerfil').value = perfil;
 
-    document.getElementById('formEditar').action = `/usuario/${id}`
-    document.getElementById('modalEditar').style.display = 'flex'
+    document.getElementById('formEditar').action = `/usuario/${id}?_method=PATCH`;
+    document.getElementById('modalEditar').style.display = 'flex';
 }
 
 function fecharModal(){
@@ -13,10 +12,9 @@ function fecharModal(){
 }
 
 window.onclick = function(event){
-
-    const modal = document.getElementById('modalEditar')
+    const modal = document.getElementById('modalEditar');
     if(event.target === modal){
-        fecharModal()
+        fecharModal();
     }
 }
 

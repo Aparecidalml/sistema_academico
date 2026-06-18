@@ -26,7 +26,7 @@
                             <td><%= usuario.perfil %></td>
                             <td class="acoes">
                                 <button class="btn-editar" onclick="abrirModal(
-                                '<%= usuario.nome %>','<%= usuario.email %>','<%= usuario.perfil %>'
+                                '<%= usuario.idUser %>','<%= usuario.nome %>','<%= usuario.email %>','<%= usuario.perfil %>'
                                 )"> ✏️ Editar </button>
 
                                 <form action="/usuario/<%= usuario.idUser %>?_method=DELETE" method="POST" style="display:inline;"

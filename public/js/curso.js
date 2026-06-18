@@ -14,7 +14,7 @@ function abrirModalCurso(
     document.getElementById('cursoTipo').value = tipo;
 
     document.getElementById('formCurso').action =
-        `/cursos/editar/${id}`;
+        `/curso/${codigo}?_method=PATCH`;
 
     document.getElementById('modalCurso').style.display =
         'flex';
@@ -26,3 +26,11 @@ function fecharModalCurso(){
         'none';
 }
 
+window.onclick = function(event){
+
+    const modal = document.getElementById('modalCurso');
+
+    if(event.target === modal){
+        fecharModalCurso();
+    }
+}

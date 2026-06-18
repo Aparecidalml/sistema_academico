@@ -41,7 +41,7 @@
         <button
             class="btn-editar"
             onclick="abrirModalCurso(
-                '<%= curso.id %>',
+                '<%= curso.idCurso %>',
                 '<%= curso.curso %>',
                 '<%= curso.cod %>',
                 '<%= curso.ch %>',
@@ -52,7 +52,7 @@
         </button>
 
         <form
-            action="/cursos/excluir/<%= curso.id %>"
+            action="/curso/<%= curso.cod %>?_method=DELETE"
             method="POST"
             style="display:inline"
             onsubmit="return confirm('Deseja excluir este curso?')"

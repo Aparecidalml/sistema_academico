@@ -3,19 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
     <title>Cadastro Disciplina</title>
 </head>
 <body>
-   
-    <h2>Cadastrar Disciplina</h2>
-    <form action="/disciplina" method="post">  
-        Código: <input type="text" id="cod_disciplina" name="cod_disciplina"><br><br> 
-        Nome: <input type="text" id="disciplina" name="disciplina"><br><br>
-        Carga Horária: <input type="text" id="ch_disciplina" name="ch_disciplina"><br><br>
-        Professor: <input type="text" id="prof" name="prof"><br><br>
-        Curso: <input type="text" id="curso" name="curso"><br><br>
-        <button type="submit">Salvar</button>
-    </form>
-    
+    <header class="header">
+        <div class="header-container">
+            <div class="header-voltar">
+                <a href="/dashboard" class="btn btn-voltar"> ← Voltar </a>
+            </div>
+            <div class="header-center">
+                <img src="/assets/logo.png" alt="Logo da Instituição" class="logo">
+                <div class="instituicao">
+                    <h1>Sistema Acadêmico</h1>
+                </div>
+            </div>
+            <div class="header-sair">
+                <a href="/logout" class="btn btn-sair"> Sair </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-container">
+        <div class="page-header">
+            <h2>Cadastrar Disciplina</h2>
+            <p>Preencha os dados da nova disciplina.</p>
+        </div>
+
+        <div class="content-card">
+            <form action="/disciplina" method="post">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="cod_disciplina">Código</label>
+                        <input type="text" id="cod_disciplina" name="cod_disciplina" placeholder="Ex: DIS001" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="disciplina">Nome</label>
+                        <input type="text" id="disciplina" name="disciplina" placeholder="Nome da disciplina" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ch_disciplina">Carga Horária</label>
+                        <input type="text" id="ch_disciplina" name="ch_disciplina" placeholder="Ex: 60" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="prof">Professor</label>
+                        <input type="text" id="prof" name="prof" placeholder="Nome do professor" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="curso">Curso</label>
+                        <input type="text" id="curso" name="curso" placeholder="Ex: ADS" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary">Salvar</button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>Sistema Acadêmico</p>
+        <p>&copy; 2026 - Todos os direitos reservados</p>
+    </footer>
 </body>
 </html>

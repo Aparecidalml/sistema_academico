@@ -3,12 +3,13 @@ import Aluno from '../models/modelAluno.js'
 import { Op } from 'sequelize'
 
 export const criarAluno = async(req, res) => {
-    const { matricula, nome, email, telefone, curso } = req.body     
-    if(!matricula && !nome && !email && !telefone && !curso) {
+    const { matricula, nome, email, tel, curso } = req.body     
+    if(!matricula && !nome && !email && !tel && !curso) {
         return res.status(400).json({mensagem: 'Preencha todos os dados!'})
     }
     try{
-        await Aluno.create(req.body)
+        const dados = { matricula, nome, email, telefone: tel, curso }
+        await Aluno.create(dados)
         res.redirect('/alunos')  
     }catch(err){
         console.log(err)
@@ -39,18 +40,18 @@ export const buscarAluno = async (req, res) => {
 
 export async function atualizarAluno (req, res) {
     try{
-        const matricula = req.params.matricula       
-        const alunoEncontrado = await Aluno.findOne({where: {matricula: matricula}}, {raw: true})
+        const idAluno = req.params.idAluno       
+        const alunoEncontrado = await Aluno.findByPk(idAluno)
         if(!alunoEncontrado) return res.status(404).json({mensagem: 'Aluno não encontrado'})
         
-        const id = alunoEncontrado.idAluno    
-        const { nome, email, telefone, curso } = req.body
+        const { nome, email, tel, curso } = req.body
         
-        if(!nome && !email && !telefone && !curso) {            
+        if(!nome && !email && !tel && !curso) {            
             return res.status(400).json({mensagem: 'Preencha todos os campos!'})
         }
-        await Aluno.update (req.body, {where: {idAluno: id}}) 
-        res.status(200).json({ mensagem: 'Aluno atualizado com sucesso'})     
+        const dados = { nome, email, telefone: tel, curso }
+        await Aluno.update (dados, {where: {idAluno: idAluno}}) 
+        res.redirect('/alunos')
     }catch(err){
         console.log(err)
         res.status(500).json({ erro: err.message})
@@ -58,13 +59,13 @@ export async function atualizarAluno (req, res) {
 }
 
 export const removerAluno = async (req,res) => {
-    const matricula = req.params.matricula
+    const idAluno = req.params.idAluno
     try{
-        const alunoEncontrado = await Aluno.findOne({where: {matricula: matricula}}, {raw: true})
+        const alunoEncontrado = await Aluno.findByPk(idAluno)
         if(!alunoEncontrado) return res.status(404).json({mensagem: 'Aluno não encontrado'})
 
-        await Aluno.destroy({where: {idAluno: alunoEncontrado.idAluno}})
-        res.status(200).json({mensagem: 'Aluno removido com sucesso'})
+        await Aluno.destroy({where: {idAluno: idAluno}})
+        res.redirect('/alunos')
     }
     catch(err){
         res.status (500).json({mensagem: 'Não encontrei o aluno, volte mais tarde', err})
@@ -73,17 +74,18 @@ export const removerAluno = async (req,res) => {
 
 export const alterarAluno = async (req, res) => {  
     try{
-        const dados = await Aluno.findOne({where: {matricula: req.params.matricula}}, {raw: true})
+        const idAluno = req.params.idAluno
+        const dados = await Aluno.findByPk(idAluno)
         if(!dados) return res.status(404).json({mensagem: 'Aluno não encontrado'}) 
         
         const dadosParciais = {}   
         if(req.body.nome) dadosParciais.nome = req.body.nome
         if(req.body.email) dadosParciais.email = req.body.email
-        if(req.body.telefone) dadosParciais.telefone = req.body.telefone
+        if(req.body.tel) dadosParciais.telefone = req.body.tel
         if(req.body.curso) dadosParciais.curso = req.body.curso
 
-        await Aluno.update (dadosParciais, {where: {idAluno: dados.idAluno}}) 
-        res.status(200).json({ mensagem: 'Aluno updated com sucesso'})
+        await Aluno.update (dadosParciais, {where: {idAluno: idAluno}}) 
+        res.redirect('/alunos')
     }catch(err){
         console.log(err)
         res.status(500).json({ erro: err.message})
@@ -91,5 +93,5 @@ export const alterarAluno = async (req, res) => {
 }
 
 export const cadastroAluno = (req, res) => {
-    res.sendFile(path.resolve('./public/html/cadastroAluno.html'))
+    res.render('cadastroAluno', { usuario: req.usuario })
 }

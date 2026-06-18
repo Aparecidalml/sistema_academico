@@ -12,7 +12,6 @@ if(process.env.MODE_NODE === 'dev'){
     HOST = 'localhost'
 }
 
-
 server.listen(PORT, HOST, () => {
     console.log(`Servidor em execução em: http://${HOST}:${PORT}`)
 })

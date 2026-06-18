@@ -32,27 +32,27 @@
 <tr>
 
     <td><%= disciplina.cod_disciplina %></td>
-    <td><%= disciplina.nome %></td>
+    <td><%= disciplina.disciplina %></td>
     <td><%= disciplina.ch_disciplina %>h</td>
-    <td><%= disciplina.prof %></td>
+    <td><%= disciplina.professor %></td>
 
     <td class="acoes">
 
         <button
             class="btn-editar"
             onclick="abrirModalDisciplina(
-                '<%= disciplina.id %>',
-                '<%= disciplina.nome %>',
+                '<%= disciplina.idDisciplina %>',
+                '<%= disciplina.disciplina %>',
                 '<%= disciplina.cod_disciplina %>',
                 '<%= disciplina.ch_disciplina %>',
-                '<%= disciplina.prof %>'
+                '<%= disciplina.professor %>'
             )"
         >
             ✏️ Editar
         </button>
 
         <form
-            action="/disciplinas/excluir/<%= disciplina.id %>"
+            action="/disciplina/<%= disciplina.cod_disciplina %>?_method=DELETE"
             method="POST"
             style="display:inline"
             onsubmit="return confirm('Deseja excluir esta disciplina?')"
@@ -104,7 +104,7 @@
                 <input
                     type="text"
                     id="discNome"
-                    name="nome"
+                    name="disciplina"
                     required
                 >
             </div>

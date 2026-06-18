@@ -1,9 +1,10 @@
 import express from 'express'
+import { autenticar } from '../middlewares/auth.js'
 import { criarCurso, cadastroCurso, listarCursos, buscarCurso, atualizarCurso , removerCurso, alterarCurso} from '../controllers/controllerCurso.js'
 
 const routeCurso = express.Router()
 
-routeCurso.get('/cadastro-curso', cadastroCurso)
+routeCurso.get('/cadastro-curso', autenticar, cadastroCurso)
 
 //Rota para adicionar curso
 routeCurso.post('/curso', criarCurso)
@@ -15,12 +16,12 @@ routeCurso.get('/cursos', listarCursos)
 routeCurso.get('/curso/:curso', buscarCurso)
 
 // // rota atulizar todos os dados
-routeCurso.put('/curso/:cod', atualizarCurso)
+routeCurso.put('/curso/:idCurso', atualizarCurso)
 
 // // Rota para remover curso pelo código
-routeCurso.delete('/curso/:cod', removerCurso)
+routeCurso.delete('/curso/:idCurso', removerCurso)
 
 // // atualizar um ou mais dados do curso
- routeCurso.patch('/curso/:cod', alterarCurso)
+ routeCurso.patch('/curso/:idCurso', alterarCurso)
 
 export default routeCurso

@@ -43,20 +43,15 @@ export const buscarCurso = async (req, res) => {
 
 export async function atualizarCurso (req, res) {
     try{
-        const cod = req.params.cod       
-         //select * from cursos where cod = req.params.cod
-        const cursoEncontrado = await Curso.findOne({where: {cod: cod}}, {raw: true})
-        // console.log(cursoEncontrado.dataValues)
-        const id = cursoEncontrado.idCurso    
+        const idCurso = req.params.idCurso       
+        const cursoEncontrado = await Curso.findByPk(idCurso)
         if(!cursoEncontrado) return res.status(404).json({mensagem: 'Curso não encontrado'})
         const {curso, ch, tipo} = req.body
-        //const cursoAtual = { curso: curso, ch: ch, tipo: tipo}
         if(!curso || !ch || !tipo) {            
             return res.status(400).json({mensagem: 'Preencha todos os campo!'})
         }
-        await Curso.update (req.body, {where: {idCurso: id}}) //update cursos set curso = ?, ch = ?, tipo = ? where idCurso = id
-        res.status(200).json({ mensagem: 'Curso atualizado com sucesso'})     
-        // res.redirect('/cursos')           
+        await Curso.update ({curso, ch, tipo}, {where: {idCurso: idCurso}})
+        res.redirect('/cursos')           
     }catch(err){
         console.log(err)
         res.status(500).json({ erro: err.message})
@@ -64,14 +59,13 @@ export async function atualizarCurso (req, res) {
 }
 
 export const removerCurso = async (req,res) => {
-    const cod = req.params.cod
+    const idCurso = req.params.idCurso
     try{
-        const cursoEncontrado = await Curso.findOne({where: {cod: cod}}, {raw: true})
+        const cursoEncontrado = await Curso.findByPk(idCurso)
         if(!cursoEncontrado) return res.status(404).json({mensagem: 'Curso não encontrado'})
 
-        await Curso.destroy({where: {idCurso: cursoEncontrado.idCurso}})
-
-        res.status(200).json({mensagem: 'Curso removido com sucesso'})
+        await Curso.destroy({where: {idCurso: idCurso}})
+        res.redirect('/cursos')
     }
     catch(err){
         res.status (500).json({mensagem: 'nao encontrei seu curso, volte mais tarde',err})
@@ -80,24 +74,22 @@ export const removerCurso = async (req,res) => {
 
 export const alterarCurso = async (req, res) => {  
     try{
-        const dados =  await Curso.findOne({where: {cod: req.params.cod}}, {raw: true})
+        const idCurso = req.params.idCurso
+        const dados = await Curso.findByPk(idCurso)
         if(!dados) return res.status(404).json({mensagem: 'Curso não encontrado'}) 
         const dadosParciais = {}   
         if(req.body.curso) dadosParciais.curso = req.body.curso
         if(req.body.ch) dadosParciais.ch = req.body.ch
         if(req.body.tipo) dadosParciais.tipo = req.body.tipo
-        console.log(req.body)
-        await Curso.update (dadosParciais, {where: {idCurso: dados.idCurso}}) //update cursos set curso = ?, ch = ?, tipo = ? where idCurso = id
-        res.status(200).json({ mensagem: 'Curso atualizado com sucesso'})
-
+        await Curso.update (dadosParciais, {where: {idCurso: idCurso}})
+        res.redirect('/cursos')
     }catch(err){
         console.log(err)
         res.status(500).json({ erro: err.message})
-
     }
 }
 
 
 export const cadastroCurso = (req, res) => {
-    res.sendFile(path.resolve('./public/html/cadastroCurso.html'))
+    res.render('cadastroCurso', { usuario: req.usuario })
 }

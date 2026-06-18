@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Alterar senha</title>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="header-voltar">
+                <a href="/" class="btn btn-voltar">  Voltar  </a>
+            </div>
+            <div class="header-center">
+                <img src="/assets/logo.png" alt="Logo da Instituição" class="logo">
+                <div class="instituicao">
+                    <h1>Sistema Acadêmico</h1>
+                    <p>Gestão Escolar Integrada</p>
+                </div>
+            </div>
+            <div class="header-sair"></div>
+        </div>
+    </header>
+
+    <main class="login-main">
+        <div class="login-card">
+            <h2>Alterar senha</h2>
+            <form action="/alterarSenha" method="post">
+                <input type="hidden" name="token" id="token">
+                <div class="form-group">
+                    <label>Nova senha</label>
+                    <input type="password" placeholder="Digite a nova senha" name="senha" id="senha" required>
+                </div>
+                <div class="form-group">
+                    <label>Confirmar senha</label>
+                    <input type="password" placeholder="Confirme a nova senha" name="confirmarSenha" id="confirmarSenha" required>
+                </div>
+                <button type="submit" class="btn-primary">Alterar senha</button>
+            </form>
+            <p class="cadastro-link"><a href="/login">Voltar ao login</a></p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>Sistema Acadêmico</p>
+        <p>&copy; 2026 - Todos os direitos reservados</p>
+    </footer>
+
+    <script src="js/alterarSenha.js">  </script>
+</body>
+</html>

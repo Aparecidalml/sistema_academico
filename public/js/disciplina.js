@@ -12,7 +12,7 @@ function abrirModalDisciplina(
     document.getElementById('discProfessor').value = professor;
 
     document.getElementById('formDisciplina').action =
-        `/disciplinas/editar/${id}`;
+        `/disciplina/${codigo}?_method=PATCH`;
 
     document.getElementById('modalDisciplina').style.display =
         'flex';
@@ -22,4 +22,13 @@ function fecharModalDisciplina(){
 
     document.getElementById('modalDisciplina').style.display =
         'none';
+}
+
+window.onclick = function(event){
+
+    const modal = document.getElementById('modalDisciplina');
+
+    if(event.target === modal){
+        fecharModalDisciplina();
+    }
 }

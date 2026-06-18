@@ -40,18 +40,18 @@ export const buscarDisciplina = async (req, res) => {
 
 export async function atualizarDisciplina (req, res) {
     try{
-        const cod = req.params.cod       
-        const disciplinaEncontrada = await Disciplina.findOne({where: {cod_disciplina: cod}}, {raw: true})
+        const idDisciplina = req.params.idDisciplina       
+        const disciplinaEncontrada = await Disciplina.findByPk(idDisciplina)
         if(!disciplinaEncontrada) return res.status(404).json({mensagem: 'Disciplina não encontrada'})
         
-        const id = disciplinaEncontrada.idDisciplina    
         const { disciplina, ch_disciplina, prof } = req.body
         
         if(!disciplina && !ch_disciplina && !prof) {            
             return res.status(400).json({mensagem: 'Preencha todos os campos!'})
         }
-        await Disciplina.update (req.body, {where: {idDisciplina: id}}) 
-        res.status(200).json({ mensagem: 'Disciplina atualizada com sucesso'})     
+        const dados = { disciplina, ch_disciplina, professor: prof }
+        await Disciplina.update (dados, {where: {idDisciplina: idDisciplina}}) 
+        res.redirect('/disciplinas')
     }catch(err){
         console.log(err)
         res.status(500).json({ erro: err.message})
@@ -59,13 +59,13 @@ export async function atualizarDisciplina (req, res) {
 }
 
 export const removerDisciplina = async (req,res) => {
-    const cod = req.params.cod
+    const idDisciplina = req.params.idDisciplina
     try{
-        const disciplinaEncontrada = await Disciplina.findOne({where: {cod_disciplina: cod}}, {raw: true})
+        const disciplinaEncontrada = await Disciplina.findByPk(idDisciplina)
         if(!disciplinaEncontrada) return res.status(404).json({mensagem: 'Disciplina não encontrada'})
 
-        await Disciplina.destroy({where: {idDisciplina: disciplinaEncontrada.idDisciplina}})
-        res.status(200).json({mensagem: 'Disciplina removida com sucesso'})
+        await Disciplina.destroy({where: {idDisciplina: idDisciplina}})
+        res.redirect('/disciplinas')
     }
     catch(err){
         res.status (500).json({mensagem: 'Não encontrei a disciplina, volte mais tarde', err})
@@ -74,7 +74,8 @@ export const removerDisciplina = async (req,res) => {
 
 export const alterarDisciplina = async (req, res) => {  
     try{
-        const dados = await Disciplina.findOne({where: {cod_disciplina: req.params.cod}}, {raw: true})
+        const idDisciplina = req.params.idDisciplina
+        const dados = await Disciplina.findByPk(idDisciplina)
         if(!dados) return res.status(404).json({mensagem: 'Disciplina não encontrada'}) 
         
         const dadosParciais = {}   
@@ -82,8 +83,8 @@ export const alterarDisciplina = async (req, res) => {
         if(req.body.ch_disciplina) dadosParciais.ch_disciplina = req.body.ch_disciplina
         if(req.body.prof) dadosParciais.professor = req.body.prof
         
-        await Disciplina.update (dadosParciais, {where: {idDisciplina: dados.idDisciplina}}) 
-        res.status(200).json({ mensagem: 'Disciplina atualizada com sucesso'})
+        await Disciplina.update (dadosParciais, {where: {idDisciplina: idDisciplina}}) 
+        res.redirect('/disciplinas')
     }catch(err){
         console.log(err)
         res.status(500).json({ erro: err.message})
@@ -91,5 +92,5 @@ export const alterarDisciplina = async (req, res) => {
 }
 
 export const cadastroDisciplina = (req, res) => {
-    res.sendFile(path.resolve('./public/html/cadastroDisciplina.html'))
+    res.render('cadastroDisciplina', { usuario: req.usuario })
 }

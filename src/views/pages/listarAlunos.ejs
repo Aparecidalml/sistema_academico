@@ -41,7 +41,7 @@
         <button
             class="btn-editar"
             onclick="abrirModal(
-                '<%= aluno.id %>',
+                '<%= aluno.idAluno %>',
                 '<%= aluno.nome %>',
                 '<%= aluno.email %>',
                 '<%= aluno.tel %>'
@@ -51,7 +51,7 @@
         </button>
 
         <form
-            action="/alunos/excluir/<%= aluno.id %>"
+            action="/aluno/<%= aluno.idAluno %>?_method=DELETE"
             method="POST"
             style="display:inline;"
             onsubmit="return confirm('Deseja realmente excluir este aluno?')"

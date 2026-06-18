@@ -5,7 +5,7 @@ function abrirModal(id, nome, email, tel){
     document.getElementById('editTel').value = tel;
 
     document.getElementById('formEditar').action =
-        `/alunos/editar/${id}`;
+        `/aluno/${id}?_method=PATCH`;
 
     document.getElementById('modalEditar').style.display =
         'flex';

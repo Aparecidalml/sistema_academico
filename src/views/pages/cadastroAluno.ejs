@@ -1,0 +1,43 @@
+<%- include('../partials/header', { titulo: 'Cadastrar Aluno' }) %>
+
+    <main class="cadastro-main">
+
+        <div class="cadastro-card">
+
+            <h2>Cadastrar Estudante</h2>
+            <p>Preencha os dados do novo aluno.</p>
+
+            <form action="/aluno" method="POST" class="cadastro-form">
+
+                <div class="form-group">
+                    <label>Matrícula</label>
+                    <input type="text" name="matricula" placeholder="Ex: 2024001" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Nome</label>
+                    <input type="text" name="nome" placeholder="Nome completo" required>
+                </div>
+
+                <div class="form-group">
+                    <label>E-mail</label>
+                    <input type="email" name="email" placeholder="email@exemplo.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Telefone</label>
+                    <input type="tel" name="tel" placeholder="(00) 00000-0000" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Curso</label>
+                    <input type="text" name="curso" placeholder="Ex: Análise e Desenvolvimento de Sistemas" required>
+                </div>
+
+                <button type="submit" class="btn-primary">Salvar </button>
+            </form>
+        </div>
+
+    </main>
+
+    <%- include('../partials/footer') %>

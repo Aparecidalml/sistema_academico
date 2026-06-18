@@ -55,31 +55,22 @@ export const atualizarUsuario = async (req, res) => {
 }
 
 export const removerUsuario = async (req, res) => {
-    const id = req.params.id
+    const idUser = req.params.idUser
     try {
-        const usuarioBD = await User.findOne({ where: { idUser: id } })
-        if (!usuarioBD) return res.status(404).send(`
-                <script>
-                    alert("Usuário não encontrado!")
-                    window.location.href="/usuarios"
-                </script>
-            `)
-        if (req.usuario.id === Number(id)) {
-            return res.status(400).send(`
-                <script>
-                    alert("Você não pode excluir seu próprio usuário!")
-                    window.location.href = "/usuarios"
-                </script> `)
+        const usuarioBD = await User.findByPk(idUser)
+        if (!usuarioBD) return res.status(404).json({mensagem: 'Usuário não encontrado!'})
+        if (req.usuario.idUser === Number(idUser)) {
+            return res.status(400).json({mensagem: 'Você não pode excluir seu próprio usuário!'})
         }
-        await User.destroy({ where: { idUser: id } })
-        res.render('listarUsuarios', { usuarios: await User.findAll() })
+        await User.destroy({ where: { idUser: idUser } })
+        res.redirect('/usuarios')
     } catch (err) {
         res.status(500).json({ mensagem: 'Erro no servidor!' })
     }
 }
 
 export const atualizarParcialUsuario = async (req, res) => {
-    const id = req.params.id
+    const idUser = req.params.idUser
     const { nome, email, perfil, senha } = req.body
     try {
         const usuarioNovo = {}
@@ -90,15 +81,10 @@ export const atualizarParcialUsuario = async (req, res) => {
             const senhaCript = await bcrypt.hash(senha, 10) // criptografa a senha
             usuarioNovo.senha = senhaCript
         }
-        const usuarioBD = await User.findOne({ where: { idUser: id } })
+        const usuarioBD = await User.findOne({ where: { idUser: idUser } })
         if (!usuarioBD) return res.status(400).json({ msg: 'Usuário não existe!' })
-        await User.update(usuarioNovo, { where: { idUser: id } })
-        res.status(200).send(`
-                <script>
-                    alert("Usuário atualizado com sucesso!")
-                    window.location.href="/usuarios"
-                </script>
-            `)
+        await User.update(usuarioNovo, { where: { idUser: idUser } })
+        res.redirect('/usuarios')
     } catch (err) {
         res.status(500).json({ mensagem: 'Erro no servidor!' })
     }

@@ -11,6 +11,92 @@ export const login = (req, res) => {
     res.sendFile(path.resolve('./public/html/login.html'))
 }
 
+export const esqueceuSenha = (req, res) => {
+    res.sendFile(path.resolve('./public/html/esqueceuSenha.html'))
+}
+
+export const recuperarSenha = async (req, res) => {
+    const { email } = req.body
+    if (!email) return res.status(400).send(`
+                <script>
+                    alert("Preencha o email!")
+                    window.location.href = "/esqueceuSenha"
+                </script> `)
+    try {
+        const usuario = await User.findOne({ where: { email: email } })
+        if (!usuario) return res.status(400).send(`
+                <script>
+                    alert("E-mail não cadastrado!")
+                    window.location.href = "/esqueceuSenha"
+                </script> `)
+
+        const token = jwt.sign(
+            {
+                id: usuario.idUser,
+                email: usuario.email
+            },
+            process.env.JWT_SECRET,
+            {
+                expiresIn: '10m',
+                algorithm: 'HS256',
+                issuer: 'sys-academico'
+            }
+        )
+
+        return res.redirect(`/alterarSenha?token=${token}`)
+    } catch (err) {
+        res.status(500).json({ msg: 'Erro no servidor!' })
+    }
+}
+
+export const formularioAlterarSenha = (req, res) => {
+    res.sendFile(path.resolve('./public/html/alterarSenha.html'))
+}
+
+export const alterarSenha = async (req, res) => {
+    const { token, senha, confirmarSenha } = req.body
+    if (!token || !senha || !confirmarSenha) return res.status(400).send(`
+                <script>
+                    alert("Preencha todos os campos!")
+                    window.location.href = "/alterarSenha"
+                </script> `)
+
+    if (senha !== confirmarSenha) return res.status(400).send(`
+                <script>
+                    alert("As senhas não conferem!")
+                    window.location.href = "/alterarSenha?token=${token}"
+                </script> `)
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET, {
+            issuer: 'sys-academico',
+            algorithms: ['HS256']
+        })
+
+        const usuario = await User.findOne({ where: { idUser: decoded.id } })
+        if (!usuario) return res.status(400).send(`
+                <script>
+                    alert("Usuário não encontrado!")
+                    window.location.href = "/esqueceuSenha"
+                </script> `)
+
+        const senhaCript = await bcrypt.hash(senha, 10)
+        await User.update({ senha: senhaCript }, { where: { idUser: usuario.idUser } })
+
+        res.status(200).send(`
+                <script>
+                    alert("Senha alterada com sucesso!")
+                    window.location.href = "/login"
+                </script> `)
+    } catch (err) {
+        return res.status(400).send(`
+                <script>
+                    alert("Token inválido ou expirado!")
+                    window.location.href = "/esqueceuSenha"
+                </script> `)
+    }
+}
+
 export const validarLogin = async (req, res) => {
     const {email, senha} = req.body
     if(!email && !senha) return res.status(400).send(`
@@ -31,19 +117,6 @@ export const validarLogin = async (req, res) => {
                     alert("Senha Inválida!")
                     window.location.href = "/login"
                 </script> `)
-
-        // session    
-        // req.session.regenerate((err) => {
-        //     if(err) return res.status(500).json({msg: 'Erro ao salvar a sessão.'})
-        //     req.session.usuario = {
-        //         id: usuario.idUser,
-        //         nome: usuario.nome,
-        //         perfil: usuario.perfil
-        //     }
-        //     res.render('index', {usuario: usuario})
-        // })     
-
-        //JWT
         const token = jwt.sign(
             {
                 id: usuario.idUser,
@@ -73,13 +146,7 @@ export const validarLogin = async (req, res) => {
 }
 
 export const logout = (req, res) => {
-    // req.session.destroy((err) => {
-    //     if(err) return res.status(500).send('Erro ao sair!')
-    //     res.clearCookie('connect.sid')
-    //     return res.redirect('/login')
-    // })
-
-    res.clearCookie('token',   
+     res.clearCookie('token',   
         { 
             httpOnly: true, 
             secure: process.env.NODE_ENV === 'production', 

@@ -3,19 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
     <title>Cadastro Aluno</title>
 </head>
 <body>
-   
-    <h2>Cadastrar Estudante</h2>
-    <form action="/aluno" method="post">  
-        Matricula: <input type="text" id="matricula" name="matricula"><br><br> 
-        Nome: <input type="text" id="nome" name="nome"><br><br>
-        E-mail: <input type="email" id="email" name="email"><br><br>
-        Telefone: <input type="tel" id="tel" name="tel"><br><br>
-        Curso: <input type="text" id="curso" name="curso"><br><br>
-        <button type="submit">Salvar</button>
-    </form>
-    
+    <header class="header">
+        <div class="header-container">
+            <div class="header-voltar">
+                <a href="/dashboard" class="btn btn-voltar"> ← Voltar </a>
+            </div>
+            <div class="header-center">
+                <img src="/assets/logo.png" alt="Logo da Instituição" class="logo">
+                <div class="instituicao">
+                    <h1>Sistema Acadêmico</h1>
+                </div>
+            </div>
+            <div class="header-sair">
+                <a href="/logout" class="btn btn-sair"> Sair </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-container">
+        <div class="page-header">
+            <h2>Cadastrar Estudante</h2>
+            <p>Preencha os dados do novo aluno.</p>
+        </div>
+
+        <div class="content-card">
+            <form action="/aluno" method="post">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="matricula">Matrícula</label>
+                        <input type="text" id="matricula" name="matricula" placeholder="Ex: 2024001" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nome">Nome</label>
+                        <input type="text" id="nome" name="nome" placeholder="Nome completo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" placeholder="email@exemplo.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tel">Telefone</label>
+                        <input type="tel" id="tel" name="tel" placeholder="(00) 00000-0000" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="curso">Curso</label>
+                        <input type="text" id="curso" name="curso" placeholder="Ex: Análise e Desenvolvimento de Sistemas" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary">Salvar</button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>Sistema Acadêmico</p>
+        <p>&copy; 2026 - Todos os direitos reservados</p>
+    </footer>
 </body>
 </html>
