@@ -1,12 +1,11 @@
 import User from '../models/modelUser.js'
 import jwt from  'jsonwebtoken'
 
-const perfils = ['Admin', 'Coordenador', 'Professor', 'Estudante']
+const perfils = ['Administrador', 'Coordenador', 'Professor', 'Estudante']
 
 export const autenticar = async (req, res, next) => {
 
-    if(!req.cookies.token) return res.redirect('/login')
-    
+    if(!req.cookies.token) return res.redirect('/login')    
     try{
         const usuario = jwt.verify(req.cookies.token, process.env.JWT_SECRET)
         req.usuario = usuario
@@ -18,7 +17,6 @@ export const autenticar = async (req, res, next) => {
 
 export function validarPerfil(perfils) {
     return (req, res, next) => {
-        // const perfil = req.session.usuario.perfil
         const perfil = req.usuario.perfil
         if (!perfils.includes(perfil)) return res.status(403).send('Acesso Negado!')
         next()

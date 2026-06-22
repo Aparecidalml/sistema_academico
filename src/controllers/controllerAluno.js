@@ -41,7 +41,7 @@ export const buscarAluno = async (req, res) => {
 export async function atualizarAluno (req, res) {
     try{
         const idAluno = req.params.idAluno       
-        const alunoEncontrado = await Aluno.findByPk(idAluno)
+        const alunoEncontrado = await Aluno.findOne({where: {matricula: idAluno}})
         if(!alunoEncontrado) return res.status(404).json({mensagem: 'Aluno não encontrado'})
         
         const { nome, email, tel, curso } = req.body
@@ -50,7 +50,7 @@ export async function atualizarAluno (req, res) {
             return res.status(400).json({mensagem: 'Preencha todos os campos!'})
         }
         const dados = { nome, email, telefone: tel, curso }
-        await Aluno.update (dados, {where: {idAluno: idAluno}}) 
+        await Aluno.update (dados, {where: {idAluno: alunoEncontrado.idAluno}}) 
         res.redirect('/alunos')
     }catch(err){
         console.log(err)
@@ -61,7 +61,7 @@ export async function atualizarAluno (req, res) {
 export const removerAluno = async (req,res) => {
     const idAluno = req.params.idAluno
     try{
-        const alunoEncontrado = await Aluno.findByPk(idAluno)
+        const alunoEncontrado = await Aluno.findOne({where: {idAluno: idAluno}})
         if(!alunoEncontrado) return res.status(404).json({mensagem: 'Aluno não encontrado'})
 
         await Aluno.destroy({where: {idAluno: idAluno}})
@@ -75,14 +75,14 @@ export const removerAluno = async (req,res) => {
 export const alterarAluno = async (req, res) => {  
     try{
         const idAluno = req.params.idAluno
-        const dados = await Aluno.findByPk(idAluno)
+        const dados = await Aluno.findOne({where: {idAluno: idAluno}})
         if(!dados) return res.status(404).json({mensagem: 'Aluno não encontrado'}) 
         
         const dadosParciais = {}   
         if(req.body.nome) dadosParciais.nome = req.body.nome
         if(req.body.email) dadosParciais.email = req.body.email
         if(req.body.tel) dadosParciais.telefone = req.body.tel
-        if(req.body.curso) dadosParciais.curso = req.body.curso
+        // if(req.body.curso) dadosParciais.curso = req.body.curso
 
         await Aluno.update (dadosParciais, {where: {idAluno: idAluno}}) 
         res.redirect('/alunos')

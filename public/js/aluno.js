@@ -1,11 +1,11 @@
-function abrirModal(id, nome, email, tel){
+function abrirModal(idAluno, nome, email, tel){
 
     document.getElementById('editNome').value = nome;
     document.getElementById('editEmail').value = email;
     document.getElementById('editTel').value = tel;
 
     document.getElementById('formEditar').action =
-        `/aluno/${id}?_method=PATCH`;
+        `/aluno/${idAluno}?_method=PATCH`;
 
     document.getElementById('modalEditar').style.display =
         'flex';

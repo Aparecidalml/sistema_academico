@@ -1,10 +1,4 @@
-function abrirModalDisciplina(
-    id,
-    nome,
-    codigo,
-    ch,
-    professor
-){
+function abrirModalDisciplina(id,nome,codigo,ch,professor) {
 
     document.getElementById('discNome').value = nome;
     document.getElementById('discCodigo').value = codigo;
@@ -18,17 +12,17 @@ function abrirModalDisciplina(
         'flex';
 }
 
-function fecharModalDisciplina(){
+function fecharModalDisciplina() {
 
     document.getElementById('modalDisciplina').style.display =
         'none';
 }
 
-window.onclick = function(event){
+window.onclick = function (event) {
 
     const modal = document.getElementById('modalDisciplina');
 
-    if(event.target === modal){
+    if (event.target === modal) {
         fecharModalDisciplina();
     }
 }

@@ -59,8 +59,13 @@ export const removerUsuario = async (req, res) => {
     try {
         const usuarioBD = await User.findByPk(idUser)
         if (!usuarioBD) return res.status(404).json({mensagem: 'Usuário não encontrado!'})
-        if (req.usuario.idUser === Number(idUser)) {
-            return res.status(400).json({mensagem: 'Você não pode excluir seu próprio usuário!'})
+        if (req.usuario.id === Number(idUser)) {
+            return res.status(400).send(`
+                <script>
+                    alert('Você não pode excluir seu próprio usuário!')
+                    window.location.href="/usuarios"
+                </script>
+            `)
         }
         await User.destroy({ where: { idUser: idUser } })
         res.redirect('/usuarios')
@@ -93,7 +98,7 @@ export const atualizarParcialUsuario = async (req, res) => {
 
 export async function usuarioAdmin() {
     try {
-        const adminExists = await User.findOne({ where: { perfil: 'Admin' } })
+        const adminExists = await User.findOne({ where: { perfil: 'Administrador' } })
         if (adminExists) {
             console.log('Usuário admin já existe!')
             return
@@ -103,7 +108,7 @@ export async function usuarioAdmin() {
             nome: 'admin',
             email: 'admin@email.com',
             senha: senhaCript,
-            perfil: 'Admin'
+            perfil: 'Administrador'
         });
         console.log('Usuário criado!')
     } catch (error) {

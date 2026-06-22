@@ -44,7 +44,7 @@ export const buscarCurso = async (req, res) => {
 export async function atualizarCurso (req, res) {
     try{
         const idCurso = req.params.idCurso       
-        const cursoEncontrado = await Curso.findByPk(idCurso)
+        const cursoEncontrado = await Curso.findOne({where: {cod: idCurso}})
         if(!cursoEncontrado) return res.status(404).json({mensagem: 'Curso não encontrado'})
         const {curso, ch, tipo} = req.body
         if(!curso || !ch || !tipo) {            
@@ -61,7 +61,7 @@ export async function atualizarCurso (req, res) {
 export const removerCurso = async (req,res) => {
     const idCurso = req.params.idCurso
     try{
-        const cursoEncontrado = await Curso.findByPk(idCurso)
+        const cursoEncontrado = await Curso.findOne({where: {cod: idCurso}})
         if(!cursoEncontrado) return res.status(404).json({mensagem: 'Curso não encontrado'})
 
         await Curso.destroy({where: {idCurso: idCurso}})
@@ -75,13 +75,15 @@ export const removerCurso = async (req,res) => {
 export const alterarCurso = async (req, res) => {  
     try{
         const idCurso = req.params.idCurso
-        const dados = await Curso.findByPk(idCurso)
+        const dados = await Curso.findOne({where: {cod: idCurso}})
+        console.log(dados)
         if(!dados) return res.status(404).json({mensagem: 'Curso não encontrado'}) 
-        const dadosParciais = {}   
+        const dadosParciais = {} 
+        if(req.body.cod) dadosParciais.cod = req.body.cod
         if(req.body.curso) dadosParciais.curso = req.body.curso
         if(req.body.ch) dadosParciais.ch = req.body.ch
         if(req.body.tipo) dadosParciais.tipo = req.body.tipo
-        await Curso.update (dadosParciais, {where: {idCurso: idCurso}})
+        await Curso.update (dadosParciais, {where: {cod: idCurso}})
         res.redirect('/cursos')
     }catch(err){
         console.log(err)

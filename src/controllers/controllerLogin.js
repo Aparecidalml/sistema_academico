@@ -134,7 +134,7 @@ export const validarLogin = async (req, res) => {
         res.cookie('token', token, 
             { 
                 httpOnly: true, 
-                secure: process.env.NODE_ENV === 'production', 
+                secure: true, 
                 maxAge: 1000 * 60 * 10 
             })
 
@@ -149,7 +149,7 @@ export const logout = (req, res) => {
      res.clearCookie('token',   
         { 
             httpOnly: true, 
-            secure: process.env.NODE_ENV === 'production', 
+            secure: true, 
             maxAge: 1000 * 60 * 10 
         })
     return res.redirect('/login')
