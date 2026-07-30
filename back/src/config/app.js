@@ -6,18 +6,14 @@ import Aluno from '../models/modelAluno.js'
 import { relacionamento } from '../models/relacao.js'
 import Disciplina from '../models/modelDisciplina.js'
 import sequelize, {conexaoBD} from './orm.js'
-import routeCurso from '../routes/routeCurso.js'
-import routeAluno from '../routes/routeAluno.js'
-import routeDisciplina from '../routes/routeDisciplina.js'
-import routeUser from '../routes/routeUser.js'
-import routeLogin from '../routes/routeLogin.js'
-import routeIndex from '../routes/routeIndex.js'
+import routerApi from '../routes/routeApi.js'
 import session from 'express-session'
 import connectSqlite from 'connect-sqlite3'
 import { apagarCache } from '../middlewares/auth.js'
 import cookieParser from 'cookie-parser'
 import { usuarioAdmin } from '../controllers/controllerUser.js'
 import methodOverride from 'method-override'
+import cors from 'cors'
 
 const app = express()
 
@@ -28,6 +24,13 @@ conexaoBD()
 usuarioAdmin()
 
 const sqliteStore = connectSqlite(session)
+
+app.use(
+    cors({
+        origin: 'http://localhost:5173',
+        credentials: true
+    })
+)
 
 app.use(express.json()) //middleware para fazer o parsear JSON no corpo das requisições
 app.use(express.urlencoded({extended: true})) //middleware para fazer o parsear dados de formulários (x-www-form-urlencoded)
@@ -62,11 +65,6 @@ app.use(cookieParser())
 
 app.use(methodOverride('_method'))
 
-app.use(routeCurso)
-app.use(routeAluno)
-app.use(routeDisciplina)
-app.use(routeUser)
-app.use(routeLogin)
-app.use(routeIndex)
+app.use(routerApi)
 
 export default app

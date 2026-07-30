@@ -1,0 +1,44 @@
+import { useEffect, useState } from "react"
+import MainLayout from "../layouts/MainLayout"
+import usuarioService from "../services/usuarioService"
+
+function Usuarios(){
+    const [usuarios,setUsuarios] = useState([])
+    useEffect(()=>{
+        async function carregar(){
+            const resposta = await usuarioService.listar()
+            setUsuarios(resposta.data)
+
+        }
+        carregar()
+
+    },[])
+
+    return(
+        <MainLayout>
+            <h2>Usuários</h2>
+            <table className="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        usuarios.map(usuarios=>(
+                            <tr key={usuario.idUser}>
+                                <td>{usuario.idUser}</td>
+                                <td>{usuario.nome}</td>
+                                <td>{usuario.email}</td>
+                            </tr>
+                        ))
+                    }
+                </tbody>
+            </table>
+        </MainLayout>
+    )
+}
+
+export default Usuarios

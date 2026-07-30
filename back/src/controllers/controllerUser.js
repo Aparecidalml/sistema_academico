@@ -8,7 +8,8 @@ export const listarUsuarios = async (req, res) => {
     try {
         const usuarios = await User.findAll()
         if (!usuarios) return res.status(400).json({ mensagem: 'Não tem usuários!' })
-        res.render('listarUsuarios', { usuarios: usuarios })
+            res.status(200).json({usuarios})
+        // res.render('listarUsuarios', { usuarios: usuarios })
     } catch (err) {
         res.status(500).json({ mensagem: 'Erro no servidor!' })
     }
