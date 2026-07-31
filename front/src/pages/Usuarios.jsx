@@ -6,9 +6,8 @@ function Usuarios(){
     const [usuarios,setUsuarios] = useState([])
     useEffect(()=>{
         async function carregar(){
-            const resposta = await usuarioService.listar()
+            const resposta = await usuarioService.listar()            
             setUsuarios(resposta.data)
-
         }
         carregar()
 
@@ -27,7 +26,7 @@ function Usuarios(){
                 </thead>
                 <tbody>
                     {
-                        usuarios.map(usuarios=>(
+                        usuarios.map(usuario=>(
                             <tr key={usuario.idUser}>
                                 <td>{usuario.idUser}</td>
                                 <td>{usuario.nome}</td>

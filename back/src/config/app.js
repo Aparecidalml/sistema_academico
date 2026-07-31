@@ -27,7 +27,9 @@ const sqliteStore = connectSqlite(session)
 
 app.use(
     cors({
-        origin: 'http://localhost:5173',
+        // origin: 'http://localhost:5173',
+        origin: 'https://super-space-guide-x5vqr7wvgqjqhg54-5173.app.github.dev',
+        methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
         credentials: true
     })
 )
