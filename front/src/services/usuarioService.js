@@ -16,4 +16,4 @@ async function excluir(id){
     return await api.delete(`/usuario/${id}`)
 }
 
-export default{listar, salvar, editar, excluir }
+export default {listar, salvar, editar, excluir }

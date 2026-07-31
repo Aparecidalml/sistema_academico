@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
-import MainLayout from "../layouts/MainLayout"
-import usuarioService from "../services/usuarioService"
+import MainLayout from "../layouts/MainLayout.jsx"
+import usuarioService from "../services/usuarioService.js"
 import '../styles/style.css'
 
 function Usuarios(){
     const [usuarios,setUsuarios] = useState([])
+
     useEffect(()=>{
         async function carregar(){
             const resposta = await usuarioService.listar()            
