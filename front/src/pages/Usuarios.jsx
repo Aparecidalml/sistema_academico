@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import MainLayout from "../layouts/MainLayout"
 import usuarioService from "../services/usuarioService"
+import '../styles/style.css'
 
 function Usuarios(){
     const [usuarios,setUsuarios] = useState([])
@@ -15,7 +16,13 @@ function Usuarios(){
 
     return(
         <MainLayout>
-            <h2>Usuários</h2>
+            <div class="page-header">
+                <div>
+                    <h2>Usuários Cadastrados</h2>
+                    
+            
+                </div>
+            </div>
             <table className="table">
                 <thead>
                     <tr>
